@@ -1,8 +1,9 @@
 import Counter from "./components/Counter";
 
 export default function App() {
-  return <>
-    <Counter/>
-  </>;
+  return (
+    <div className="w-screen h-screen grid place-items-center">
+      <Counter/>
+    </div>
+  );
 }
-

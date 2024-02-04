@@ -23,10 +23,10 @@ export default function Counter() {
   };
 
   return (
-    <>
-      <div className="flex space-x-5 items-center">
+    <div className="text-center">
+      <div className="flex space-x-5">
         <button
-          className="px-5 rounded bg-gray-700 text-2xl"
+          className="px-5 rounded bg-red-700 text-2xl"
           onClick={decrement}
           disabled={error?.type === "decr"}
         >
@@ -34,7 +34,7 @@ export default function Counter() {
         </button>
         <p className="text-2xl">{count}</p>
         <button
-          className="px-5 rounded bg-gray-700 text-2xl"
+          className="px-5 rounded bg-green-700 text-2xl"
           onClick={increment}
           disabled={error?.type === "incr"}
         >
@@ -42,6 +42,6 @@ export default function Counter() {
         </button>
       </div>
       <p className="text-red-300">{error?.msg}</p>
-    </>
+    </div>
   );
 }
