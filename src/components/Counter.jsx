@@ -1,27 +1,26 @@
-import { useReducer } from "react";
+import { useState } from "react";
 
-function reducer(state, action) {
-  switch (action.type) {
-    case "incr":
-      if (state.count >= 10)
-        return { ...state, error: { msg: "Maximum Reached", type: "incr" } };
-      return { ...state, count: state.count + 1, error: null };
+export default function Counter() {
+  const [count, setCount] = useState(0);
+  const [error, setError] = useState({ type: null, msg: null });
 
-    case "decr":
-      if (state.count <= 0)
-        return { ...state, error: { msg: "Minimum Reached", type: "decr" } };
-      return { ...state, count: state.count - 1, error: null };
+  const increment = () => {
+    if (count >= 10) {
+      setError({ msg: "Maximum Reached", type: "incr" });
+      return;
+    }
+    setCount((prev) => prev + 1);
+    setError(null);
+  };
 
-    default:
-      break;
-  }
-}
-
-export function Counter() {
-  const [state, dispatch] = useReducer(reducer, { count: 0, error: {} });
-
-  const increment = () => dispatch({ type: "incr" });
-  const decrement = () => dispatch({ type: "decr" });
+  const decrement = () => {
+    if (count <= 0) {
+      setError({ msg: "Minimum Reached", type: "decr" });
+      return;
+    }
+    setCount((prev) => prev - 1);
+    setError(null);
+  };
 
   return (
     <>
@@ -29,20 +28,20 @@ export function Counter() {
         <button
           className="px-5 rounded bg-gray-700 text-2xl"
           onClick={decrement}
-          disabled={state?.error?.type === "decr"}
+          disabled={error?.type === "decr"}
         >
           -
         </button>
-        <p className="text-2xl">{state.count}</p>
+        <p className="text-2xl">{count}</p>
         <button
           className="px-5 rounded bg-gray-700 text-2xl"
           onClick={increment}
-          disabled={state?.error?.type === "incr"}
+          disabled={error?.type === "incr"}
         >
           +
         </button>
       </div>
-      <p className="text-red-300">{state?.error?.msg}</p>
+      <p className="text-red-300">{error?.msg}</p>
     </>
   );
 }
